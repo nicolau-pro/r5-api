@@ -1,13 +1,15 @@
 const express = require("express");
 const swaggerUi = require("swagger-ui-express");
 const YAML = require("yamljs");
-
-const app = express();
-app.use(express.json());
-
 const swaggerDocument = YAML.load("./swagger.yaml");
 
+const app = express();
+
+// In-memory database for demonstration purposes
 let companies = [];
+
+// Middleware to parse JSON bodies
+app.use(express.json());
 
 // Swagger docs
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
